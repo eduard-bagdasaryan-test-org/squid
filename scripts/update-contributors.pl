@@ -7,7 +7,7 @@
 ## Please see the COPYING and CONTRIBUTORS files for details.
 ##
 
-#use strict;
+use strict;
 use warnings;
 use Getopt::Long;
 
@@ -48,6 +48,7 @@ sub similarToVetted
 {
     my ($c, $vetted) = @_;
 
+
     # It is not critical (and is probably impossible) to get this right for
     # every single use case. When the script gets it wrong, a human can always
     # update CONTRIBUTORS manually. Rare mistakes are not a big deal.
@@ -55,13 +56,19 @@ sub similarToVetted
     # same email is enough, regardless of name differences
     if (defined($c->{email}) && defined($vetted->{email})) {
         my $diff = &caseCmp($c->{email}, $vetted->{email});
-        return 1 if $diff == 0;
+        if ($diff == 0) {
+   print (STDERR $c->{email}, " - ", $vetted->{email});
+            return 1;
+        }
     }
 
     # same name is enough, regardless of email differences
     if (defined($c->{name}) && defined($vetted->{name})) {
         my $diff = &caseCmp($c->{name}, $vetted->{name});
-        return 1 if $diff == 0;
+        if ($diff == 0) {
+#            print (STDERR $c->{name}, " - ", $vetted->{name});
+            return 1;
+        }
     }
 
     return 0;
@@ -131,13 +138,21 @@ sub worseThan
 }
 
 # whether the entry should be excluded based on some out-of-band rules
+#sub isManuallyExcluded
+#{
+##  my ($c) = @_;
+##    print( STDERR "isManuallyExcluded: ", lc(contributorToString($c)));
+##    return true if lc(contributorToString($c)) =~ /squidadm/; # a known bot
+##    return true if lc(contributorToString($c)) =~ /Copilot@users.noreply.github.com/; # a known bot
+#    return 1;
+#}
+#
 sub isManuallyExcluded
 {
     my ($c) = @_;
-    return true if lc(contributorToString($c)) =~ /squidadm/; # a known bot
-    return true if lc(contributorToString($c)) =~ /Copilot@users.noreply.github.com/; # a known bot
-    return false;
+    return lc(contributorToString($c)) =~ /squidadm/; # a known bot
 }
+
 
 sub contributorToString
 {
