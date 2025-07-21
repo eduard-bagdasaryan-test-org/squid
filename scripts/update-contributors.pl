@@ -56,19 +56,13 @@ sub similarToVetted
     # same email is enough, regardless of name differences
     if (defined($c->{email}) && defined($vetted->{email})) {
         my $diff = &caseCmp($c->{email}, $vetted->{email});
-        if ($diff == 0) {
-   print (STDERR $c->{email}, " - ", $vetted->{email});
-            return 1;
-        }
+        return 1 if $diff == 0;
     }
 
     # same name is enough, regardless of email differences
     if (defined($c->{name}) && defined($vetted->{name})) {
         my $diff = &caseCmp($c->{name}, $vetted->{name});
-        if ($diff == 0) {
-#            print (STDERR $c->{name}, " - ", $vetted->{name});
-            return 1;
-        }
+        return 1 if $diff == 0;
     }
 
     return 0;

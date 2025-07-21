@@ -157,7 +157,7 @@ SeenErrors=0
 if ! git diff --quiet; then
 	echo "There are unstaged changes. This script may modify sources."
 	echo "Stage changes to avoid permanent losses when things go bad."
-#	exit 1
+	exit 1
 fi
 
 # usage: <well-known program name> <program argument(s)> <candidate name>...
@@ -770,7 +770,7 @@ collectAuthors ()
     fi
     result=$?
 
-#    rm -f authors.tmp
+    rm -f authors.tmp
     return $result
 }
 
