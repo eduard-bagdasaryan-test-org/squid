@@ -7,7 +7,7 @@
 ## Please see the COPYING and CONTRIBUTORS files for details.
 ##
 
-use strict;
+#use strict;
 use warnings;
 use Getopt::Long;
 
