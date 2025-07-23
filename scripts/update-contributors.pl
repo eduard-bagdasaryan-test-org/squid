@@ -48,6 +48,7 @@ sub similarToVetted
 {
     my ($c, $vetted) = @_;
 
+
     # It is not critical (and is probably impossible) to get this right for
     # every single use case. When the script gets it wrong, a human can always
     # update CONTRIBUTORS manually. Rare mistakes are not a big deal.
@@ -131,6 +132,15 @@ sub worseThan
 }
 
 # whether the entry should be excluded based on some out-of-band rules
+#sub isManuallyExcluded
+#{
+##  my ($c) = @_;
+##    print( STDERR "isManuallyExcluded: ", lc(contributorToString($c)));
+##    return true if lc(contributorToString($c)) =~ /squidadm/; # a known bot
+##    return true if lc(contributorToString($c)) =~ /Copilot@users.noreply.github.com/; # a known bot
+#    return 1;
+#}
+#
 sub isManuallyExcluded
 {
     my ($c) = @_;
@@ -139,6 +149,7 @@ sub isManuallyExcluded
     return 1 if $lowerCasedContributorGist =~ /copilot[@]users[.]noreply[.]github[.]com/; # a known bot
     return 0;
 }
+
 
 sub contributorToString
 {
